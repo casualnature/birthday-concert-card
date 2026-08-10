@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#2b150d">
+  <title>Free Demo | A Birthday Surprise</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preload" href="../assets/curtain_closed.png" as="image">
+  <link rel="preload" href="../assets/wave.png" as="image">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .letter{left:26%;right:18%;top:43%;bottom:25%}
+    .signature{position:absolute;z-index:3;left:57%;right:18%;top:76%;bottom:14%;display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;color:#4f2b18;font-size:clamp(15px,4vw,21px);line-height:1.35;text-align:left;overflow-wrap:anywhere}
+    .signature p{margin:0}.signature #fromName{margin-top:.18em;font-size:1.05em;font-style:italic}
+    .replay-button{position:absolute;z-index:4;left:50%;bottom:max(1.8%,env(safe-area-inset-bottom));transform:translateX(-50%);min-width:112px;min-height:42px;padding:.55rem 1rem;border:1px solid rgba(91,53,27,.35);border-radius:999px;background:rgba(255,239,205,.82);box-shadow:0 7px 20px rgba(65,34,15,.18);color:#68401f;font:600 clamp(.78rem,3.3vw,.92rem) Georgia,serif;letter-spacing:.04em;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .replay-button:active{background:rgba(255,247,225,.94)}.replay-button:focus-visible{outline:2px solid #6f4528;outline-offset:3px}
+    .sound-toggle{position:absolute;z-index:10;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));min-width:102px;min-height:38px;padding:.45rem .7rem;border:1px solid rgba(255,225,170,.4);border-radius:999px;background:rgba(47,25,14,.62);box-shadow:0 6px 18px rgba(0,0,0,.22);color:#fff0cd;font:600 clamp(.68rem,2.8vw,.8rem) Georgia,serif;letter-spacing:.02em;text-shadow:0 1px 5px rgba(0,0,0,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+    .sound-toggle:active{background:rgba(74,41,22,.78)}.sound-toggle:focus-visible{outline:2px solid #f0c77b;outline-offset:3px}
+  </style>
+</head>
+<body>
+  <main class="stage" id="stage" aria-live="polite">
+    <button class="scene active" id="opening" aria-label="Open your birthday card">
+      <img src="../assets/curtain_closed.png" alt="A warmly lit red theater curtain">
+      <span class="hint opening-hint">Tap to open</span>
+    </button>
+
+    <section class="scene" id="curtain" aria-hidden="true">
+      <video id="curtainVideo" playsinline webkit-playsinline preload="auto" muted poster="../assets/curtain_closed.png"></video>
+    </section>
+
+    <button class="scene" id="wave" aria-label="Start the birthday song" aria-hidden="true">
+      <img class="fallback" src="../assets/wave.png" alt="A musical duo waving">
+      <video id="waveVideo" playsinline webkit-playsinline preload="auto" muted loop poster="../assets/wave.png"></video>
+      <span class="hint">Tap to start the song</span>
+    </button>
+
+    <section class="scene" id="singing" aria-hidden="true">
+      <img class="fallback" src="../assets/singing.png" alt="A musical duo singing happy birthday">
+      <video id="singingVideo" playsinline webkit-playsinline preload="auto" poster="../assets/singing.png"></video>
+    </section>
+
+    <button class="scene message-notice" id="notice" aria-label="Open your message" aria-hidden="true">
+      <span class="notice-glow" aria-hidden="true"></span>
+      <img src="../assets/envelope.svg" alt="" class="envelope">
+      <span class="notice-title">A message is waiting for you</span>
+      <span class="hint notice-hint">Tap to open</span>
+    </button>
+
+    <section class="scene message-scene" id="messageScene" aria-hidden="true">
+      <img src="../assets/message.png" alt="A warm watercolor birthday message card">
+      <article class="letter" id="letter">
+        <p class="dear">Dear <span id="toName"></span>,</p>
+        <p class="message" id="messageText"></p>
+      </article>
+      <div class="signature" id="signature" aria-label="Signature">
+        <p>With love,</p><p id="fromName"></p>
+      </div>
+      <button class="replay-button" id="replayButton" type="button" aria-label="Replay the birthday card">
+        <span aria-hidden="true">↻</span> Replay
+      </button>
+    </section>
+    <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" aria-label="Turn sound off">🔊 Sound On</button>
+  </main>
+  <audio id="ambient" loop preload="none"></audio>
+  <div class="loading" id="loading" hidden><span></span><span class="sr-only">Loading</span></div>
+  <script src="script.js"></script>
+</body>
+</html>
