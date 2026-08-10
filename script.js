@@ -67,7 +67,7 @@ function stop(video){video.pause();try{video.currentTime=0}catch{}}
 function applySoundState(){
   ambient.muted=!soundEnabled;
   singingVideo.muted=!soundEnabled;
-  if(soundEnabled&&current==="wave"&&ambient.paused){
+  if(soundEnabled&&(current==="curtain"||current==="wave")&&ambient.paused){
     if(ambientContext?.state==="suspended")ambientContext.resume().catch(error=>console.error("Cafe ambience AudioContext resume failed:",error));
     const playPromise=ambient.play();
     if(playPromise)playPromise.catch(error=>console.error("Cafe ambience playback failed after Sound On:",error));
@@ -261,7 +261,17 @@ function resetCard(){
   Object.entries(scenes).forEach(([name,node])=>{const active=name==="opening";node.classList.toggle("active",active);node.setAttribute("aria-hidden",String(!active))});
 }
 replayButton.addEventListener("click",event=>{event.stopPropagation();resetCard()});
-soundToggle.addEventListener("click",event=>{event.stopPropagation();soundEnabled=!soundEnabled;applySoundState()});
+soundToggle.addEventListener("click",event=>{
+  event.stopPropagation();
+  soundEnabled=!soundEnabled;
+
+  // Apply the user's mute choice synchronously inside the tap event.
+  ambient.muted=!soundEnabled;
+  singingVideo.muted=!soundEnabled;
+  if(!soundEnabled)ambient.pause();
+
+  applySoundState();
+});
 applySoundState();
 
 document.addEventListener("visibilitychange",()=>{if(document.hidden){stopAmbientSound(.15);if(current==="wave")waveVideo.pause();if(current==="singing")singingVideo.pause()}else{if(current==="wave"){safePlay(waveVideo,"Wave video");startAmbientSound()}if(current==="singing")safePlay(singingVideo,"Singing video")}});
