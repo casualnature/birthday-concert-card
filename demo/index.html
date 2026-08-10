@@ -17,9 +17,11 @@
     .replay-button:active{background:rgba(255,247,225,.94)}.replay-button:focus-visible{outline:2px solid #6f4528;outline-offset:3px}
     .sound-toggle{position:absolute;z-index:10;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));min-width:102px;min-height:38px;padding:.45rem .7rem;border:1px solid rgba(255,225,170,.4);border-radius:999px;background:rgba(47,25,14,.62);box-shadow:0 6px 18px rgba(0,0,0,.22);color:#fff0cd;font:600 clamp(.68rem,2.8vw,.8rem) Georgia,serif;letter-spacing:.02em;text-shadow:0 1px 5px rgba(0,0,0,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
     .sound-toggle:active{background:rgba(74,41,22,.78)}.sound-toggle:focus-visible{outline:2px solid #f0c77b;outline-offset:3px}
+    .demo-badge{position:fixed;z-index:9;top:max(14px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));padding:.34rem .55rem;border:1px solid rgba(255,225,170,.28);border-radius:999px;background:rgba(47,25,14,.38);color:rgba(255,240,205,.9);font:600 clamp(.58rem,2.5vw,.7rem) Georgia,serif;letter-spacing:.1em;text-shadow:0 1px 4px rgba(0,0,0,.45);pointer-events:none;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
   </style>
 </head>
 <body>
+  <div class="demo-badge" aria-label="Free demo">FREE DEMO</div>
   <main class="stage" id="stage" aria-live="polite">
     <button class="scene active" id="opening" aria-label="Open your birthday card">
       <img src="../assets/curtain_closed.png" alt="A warmly lit red theater curtain">
